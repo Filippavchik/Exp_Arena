@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Ui
@@ -128,10 +129,32 @@ namespace Assets.Scripts.Ui
             UIData.instanse.EndPanel.SetActive(true);
             UIData.instanse.DeadImage.SetActive(isDead);
             UIData.instanse.DeadImage.SetActive(!isDead);
-            Time.timeScale = 0;
+
+            if (isDead)
+            {
+                FindObjectOfType<PMoveController>().GetComponent<PlayerInput>().enabled = false;
+
+            }
+
+            //Time.timeScale = 0;
 
             EndGame();
         }
+
+        //TODO Changes альфа канал - изменение прозрачности.
+        //private IEnumerator blackoutPanel()
+        //{
+        //    int Currentblackout;
+        //    while (true)
+        //    {
+        //        WriteSprite.color = new Color(WriteSprite.color.r, WriteSprite.color.g, WriteSprite.color.b, WriteSprite.color.a - (SpeedColoring * Time.deltaTime));
+
+        //        OriginalSprite.color = new Color(OriginalSprite.color.r, OriginalSprite.color.g, OriginalSprite.color.b, OriginalSprite.color.a + (SpeedColoring * Time.deltaTime));
+        //        Currentblackout = 
+        //        yield return new WaitForSeconds(0.1f);
+
+        //    }
+        //}
 
         private void EndGame()
         {
@@ -154,13 +177,13 @@ namespace Assets.Scripts.Ui
 
         public void ChangesLevelBar()
         {
-            //int a = UIData.instanse.levelPlayer.ExpLevelPlayer[CurrentLevelPlayer]; //Зависит от того как начнётся первый лвл.  от 0 элемента текущий лвл 1. 2
+            int ExpToNewLevel = UIData.instanse.levelPlayer.ExpLevelPlayer[CurrentLevelPlayer];
             int AddPlayerExp = CountAddLevel;
             CountPlayerExp += AddPlayerExp;
-            CountPlayerExp = 10;
-            if (CountPlayerExp >= 10)
+
+            if (CountPlayerExp >= ExpToNewLevel)
             {
-                CountPlayerExp -= 10;
+                CountPlayerExp -= ExpToNewLevel;
                 LevelExp++;
                 _uIData.Level.text = LevelExp.ToString();
                 CurrentLevelPlayer++;
@@ -169,7 +192,7 @@ namespace Assets.Scripts.Ui
 
            
             float CountAddExp = CountPlayerExp;
-            CountAddExp = CountAddExp / 10;
+            CountAddExp = CountAddExp / ExpToNewLevel;
             _uIData.LevelBar.fillAmount = CountAddExp;
         }
 
