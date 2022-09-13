@@ -34,6 +34,8 @@ namespace Assets.Scripts.Ui
         public GameObject DeadImage;
         public GameObject SurvivedImage;
 
+        public LevelPlayer levelPlayer;
+
         private void Awake()
         {
             if (instanse != null) Destroy(instanse);

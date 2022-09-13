@@ -25,6 +25,8 @@ namespace Assets.Scripts.Ui
         [SerializeField] private int AllTime = 10;
         private int CurrentTimeSesion;
 
+        private int CurrentLevelPlayer;
+
         private void Awake()
         {
             if (instanse != null) Destroy(instanse);
@@ -152,6 +154,7 @@ namespace Assets.Scripts.Ui
 
         public void ChangesLevelBar()
         {
+            var a = UIData.instanse.levelPlayer.ExpLevelPlayer[CurrentLevelPlayer - 1];
            int AddPlayerExp = CountAddLevel;
             CountPlayerExp += AddPlayerExp;
             CountPlayerExp = 10;
@@ -160,6 +163,7 @@ namespace Assets.Scripts.Ui
                 CountPlayerExp -= 10;
                 LevelExp++;
                 _uIData.Level.text = LevelExp.ToString();
+                CurrentLevelPlayer++;
                 UpdateUpLevel();
             }
 

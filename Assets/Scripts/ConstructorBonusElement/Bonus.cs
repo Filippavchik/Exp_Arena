@@ -24,4 +24,6 @@ namespace Assets.Scripts.ConstructorBonusElement
 
     }
 
+   
+
 }

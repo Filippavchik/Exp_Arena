@@ -5762,6 +5762,7 @@ MonoBehaviour:
   BakeLevel: {fileID: 951546454}
   DeadImage: {fileID: 1723751091}
   SurvivedImage: {fileID: 910336812}
+  levelPlayer: {fileID: 11400000, guid: a5ca44fdecd62c8478c5ca9d0674fade, type: 2}
 --- !u!114 &163389227
 MonoBehaviour:
   m_ObjectHideFlags: 0
