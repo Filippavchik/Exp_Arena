@@ -7,8 +7,8 @@ namespace Assets.Scripts.ConstructorBonusElement
     public class ControllerBonus : MonoBehaviour
     {
         [SerializeField] private List<Bonus> AllBonus;
-        [field: SerializeField] public List<Bonus> CurrentBonus { get; private set; } //TEST Visibility
-        [SerializeField] private List<Bonus> RemoveList;//TEST Visibility
+        public List<Bonus> CurrentBonus { get; private set; } 
+        private List<Bonus> RemoveList;
         [SerializeField] private int[] CurrentLevelBonus = new int[8];
 
         const int MAX_BONUS_LEVEL = 4;
@@ -20,6 +20,7 @@ namespace Assets.Scripts.ConstructorBonusElement
             UpdateBonusPlayer.UpdateStatePlayer += BonusSelection;
             InitBonus();
         }
+
         private void OnDestroy()
         {
             UpdateBonusPlayer.UpdateStatePlayer -= BonusSelection;
