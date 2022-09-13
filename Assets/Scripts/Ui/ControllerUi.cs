@@ -154,8 +154,8 @@ namespace Assets.Scripts.Ui
 
         public void ChangesLevelBar()
         {
-            var a = UIData.instanse.levelPlayer.ExpLevelPlayer[CurrentLevelPlayer - 1];
-           int AddPlayerExp = CountAddLevel;
+            //int a = UIData.instanse.levelPlayer.ExpLevelPlayer[CurrentLevelPlayer]; //Зависит от того как начнётся первый лвл.  от 0 элемента текущий лвл 1. 2
+            int AddPlayerExp = CountAddLevel;
             CountPlayerExp += AddPlayerExp;
             CountPlayerExp = 10;
             if (CountPlayerExp >= 10)
