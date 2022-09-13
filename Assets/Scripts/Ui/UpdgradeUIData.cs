@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.ConstructorBonusElement;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,5 +11,8 @@ namespace Assets.Scripts.Ui
         public Text Description;
         public Image BonusImage;
         public Image Frame;
+        public Button ButtonClickBonus;
+
+        public Bonus ElementBonus;
     }
 }

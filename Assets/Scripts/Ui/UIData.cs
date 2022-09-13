@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.ConstructorBonusElement;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,7 +27,7 @@ namespace Assets.Scripts.Ui
 
         public GameObject PanelUpgradeLevel;
         public UpdgradeUIData[] AllLevelUiData;
-        public Bonus[] AllBonus;
+        public List<Bonus> AllBonus;
 
         public GameObject BakeLevel;
 

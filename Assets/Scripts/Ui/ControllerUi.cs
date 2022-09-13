@@ -7,7 +7,6 @@ namespace Assets.Scripts.Ui
 {
     public class ControllerUi : MonoBehaviour
     {
-        
         public static ControllerUi instanse;
 
         private UpdateBonusPlayer _updateBonusPlayer;
@@ -36,12 +35,20 @@ namespace Assets.Scripts.Ui
         private void Start()
         {
             _uIData = UIData.instanse;
+
             PlayerStatesHolder.EventMinusPlayerHp += MinusHpPlayer;
             PlayerStatesHolder.EventToDeadPlayer += DeadOrWinPlayer;
 
 
             CurrentTimeSesion = AllTime * 60;
             StartCoroutine(Timer());
+        }
+
+        private void OnDestroy()
+        {
+            PlayerStatesHolder.EventMinusPlayerHp -= MinusHpPlayer;
+            PlayerStatesHolder.EventToDeadPlayer -= DeadOrWinPlayer;
+
         }
 
         private IEnumerator Timer()
