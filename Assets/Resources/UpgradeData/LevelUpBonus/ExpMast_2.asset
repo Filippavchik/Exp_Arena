@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c15d8b10776caf4bac18039a73411a2, type: 3}
   m_Name: ExpMast_2
   m_EditorClassIdentifier: 
-  NameBonus: Impulse-Shmimpulse
-  Description: Stronger impulse
-  BonusImage: {fileID: 21300000, guid: 446f635295c542f4a9a83be056ab2524, type: 3}
+  NameBonus: Exp Master
+  Description: Movement Speed +20% on 1 sec when gaining Exp | Radius of Exp attraction
+    +10%
+  BonusImage: {fileID: 21300000, guid: 8505ac99bfada7f4ab9187b4ebf1855d, type: 3}
   Frame: {fileID: 21300000, guid: a0f4eee28a606a54e99d75d901f8088b, type: 3}
   SaveCurrentBonus:
     improvements: 6

@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c15d8b10776caf4bac18039a73411a2, type: 3}
   m_Name: ExpMast_4
   m_EditorClassIdentifier: 
-  NameBonus: Impulse-Shmimpulse
-  Description: Impulse Rate +25%
-  BonusImage: {fileID: 21300000, guid: 446f635295c542f4a9a83be056ab2524, type: 3}
+  NameBonus: Exp Master
+  Description: Fire Rate +35% on 1 sec when gaining Exp | Radius of Exp attraction
+    +15%
+  BonusImage: {fileID: 21300000, guid: 8505ac99bfada7f4ab9187b4ebf1855d, type: 3}
   Frame: {fileID: 21300000, guid: 01f65f6020d9b4b47a606f1a00e3b7e6, type: 3}
   SaveCurrentBonus:
     improvements: 6
