@@ -154,7 +154,7 @@ namespace Assets.Scripts.Ui
         {
            int AddPlayerExp = CountAddLevel;
             CountPlayerExp += AddPlayerExp;
-
+            CountPlayerExp = 10;
             if (CountPlayerExp >= 10)
             {
                 CountPlayerExp -= 10;

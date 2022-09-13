@@ -10,13 +10,19 @@ namespace Assets.Scripts.ConstructorBonusElement
         [field: SerializeField] public List<Bonus> CurrentBonus { get; private set; } //TEST Visibility
         [SerializeField] private List<Bonus> RemoveList;//TEST Visibility
         [SerializeField] private int[] CurrentLevelBonus = new int[8];
+
         const int MAX_BONUS_LEVEL = 4;
-        const int CURRENT_INDEX_SPAWN_NEW_CARD = 2;
+        const int CURRENT_INDEX_SPAWN_NEW_CARD = 3;
         public int LengthBranchBonus;
 
         private void Start()
         {
+            UpdateBonusPlayer.UpdateStatePlayer += BonusSelection;
             InitBonus();
+        }
+        private void OnDestroy()
+        {
+            UpdateBonusPlayer.UpdateStatePlayer -= BonusSelection;
         }
 
         private void InitBonus()
@@ -24,7 +30,7 @@ namespace Assets.Scripts.ConstructorBonusElement
             AllBonus = UIData.instanse.AllBonus;
             for (int i = 0; i < AllBonus.Count; i++)
             {
-                if (AllBonus[i].SaveCurrentBonus.RangeToSelectionBonus == 1)
+                if (AllBonus[i].SaveCurrentBonus.RangeToSelectionBonus == 0)
                 {
                     CurrentBonus.Add(AllBonus[i]);
                     RemoveList.Add(AllBonus[i]);
@@ -38,11 +44,13 @@ namespace Assets.Scripts.ConstructorBonusElement
         /// После выбора текущего навыка идёт обновления текущих рангов.
         /// </summary>
         /// <param name="improvements"> текущий выбранный бонус</param>
-        public void BonusSelection(Improvements improvements) //TODO Передать бонус и изменить статы.
+        public void BonusSelection(Bonus bonus) //TODO Передать бонус и изменить статы.
         {
-            Bonus bonus = null;
-            //нужно сравнить текущий  бонус 
-            var LevelBonus = CurrentLevelBonus[(int)improvements]++; // повышаем текущий левел выпадения бонуса.
+            Improvements improvements = bonus.SaveCurrentBonus.improvements;
+            int Index = (int)improvements;
+            var LevelBonus = ++CurrentLevelBonus[Index]; // повышаем текущий левел выпадения бонуса.
+            Debug.Log("Level Bonus " + LevelBonus);//CurrentLevelBonus[Index]
+
 
             for (int i = 0; i < AllBonus.Count; i++)
             {
@@ -51,16 +59,18 @@ namespace Assets.Scripts.ConstructorBonusElement
                     CurrentBonus.Add(AllBonus[i]);
                     RemoveList.Add(AllBonus[i]);
                 }
-                if (AllBonus[i].SaveCurrentBonus.improvements == improvements && AllBonus[i].SaveCurrentBonus.RangeToSelectionBonus > LevelBonus && LevelBonus != CURRENT_INDEX_SPAWN_NEW_CARD)
+                if (AllBonus[i].SaveCurrentBonus.improvements == improvements &&
+                    AllBonus[i].SaveCurrentBonus.RangeToSelectionBonus > LevelBonus && 
+                    AllBonus[i].SaveCurrentBonus.RangeToSelectionBonus != CURRENT_INDEX_SPAWN_NEW_CARD)
                 {
                     CurrentBonus.Add(AllBonus[i]);
                     RemoveList.Add(AllBonus[i]);
-                    break;
                 }
             }
+
             for (int i = 0; i < CurrentBonus.Count; i++)
             {
-                if (CurrentBonus[i].SaveCurrentBonus.improvements == improvements && CurrentBonus[i].SaveCurrentBonus.RangeToSelectionBonus == LevelBonus - 1)
+                if (CurrentBonus[i] == bonus)
                 {
                     CurrentBonus.Remove(CurrentBonus[i]);
                     break;
