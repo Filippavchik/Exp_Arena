@@ -5763,6 +5763,7 @@ MonoBehaviour:
   DeadImage: {fileID: 1723751091}
   SurvivedImage: {fileID: 910336812}
   levelPlayer: {fileID: 11400000, guid: a5ca44fdecd62c8478c5ca9d0674fade, type: 2}
+  animator: {fileID: 0}
 --- !u!114 &163389227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11243,6 +11244,8 @@ GameObject:
   - component: {fileID: 315934837}
   - component: {fileID: 315934839}
   - component: {fileID: 315934838}
+  - component: {fileID: 315934840}
+  - component: {fileID: 315934841}
   m_Layer: 5
   m_Name: Indicator_Aim_Dead_Image (1)
   m_TagString: Untagged
@@ -11308,6 +11311,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 315934836}
   m_CullTransparentMesh: 1
+--- !u!111 &315934840
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315934836}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: d3055cd5456fd1c4b94fa37b202477fc, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: d3055cd5456fd1c4b94fa37b202477fc, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!95 &315934841
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315934836}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a3242c0a2818f9e44a9334feb45d34dd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &316866931
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34824,6 +34863,7 @@ GameObject:
   - component: {fileID: 1060051724}
   - component: {fileID: 1060051723}
   - component: {fileID: 1060051725}
+  - component: {fileID: 1060051726}
   m_Layer: 5
   m_Name: Indicator_Aim_Image
   m_TagString: Untagged
@@ -34898,12 +34938,33 @@ Animation:
   m_GameObject: {fileID: 1060051721}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
+  m_Animation: {fileID: 7400000, guid: e92b959f91f73644aa643b85d87c4b9f, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 5481488a82765764c9eaca67e11b4a1a, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!95 &1060051726
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1060051721}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 192d87955bdd31c4eb14d9cde6a3dc4c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &1063003147 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000010959221492, guid: 9159f83903b0ac1419be247272f0d115, type: 3}
@@ -74201,7 +74262,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3779741032543787607, guid: 26ad978c61683284084b0b27ac796ac5, type: 3}
       propertyPath: roundsPerMinutes
-      value: 120
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 3779741032543787607, guid: 26ad978c61683284084b0b27ac796ac5, type: 3}
       propertyPath: projectileImpulse
