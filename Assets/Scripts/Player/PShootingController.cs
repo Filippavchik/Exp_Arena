@@ -122,8 +122,9 @@ public class PShootingController : MonoBehaviour
         Trail.transform.position = HitPoint;
         if (MadeImpact)
         {
+           
            ParticleSystem impact = Instantiate(ImpactParticleSystem, HitPoint, Quaternion.LookRotation(HitNormal));
-
+           
 
         }
 
