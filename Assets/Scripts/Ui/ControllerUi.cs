@@ -102,7 +102,8 @@ namespace Assets.Scripts.Ui
         {
             isActive = true;
             AimImage.SetActive(true);
-            yield return new WaitForSeconds(0.5f);
+            AimImage.GetComponent<Animation>().Play();
+            yield return new WaitForSeconds(0.25f);
             AimImage.SetActive(false);
             isActive = false;
         }

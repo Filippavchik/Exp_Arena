@@ -36,6 +36,8 @@ namespace Assets.Scripts.Ui
 
         public LevelPlayer levelPlayer;
 
+        public Animator animator;
+
         private void Awake()
         {
             if (instanse != null) Destroy(instanse);
