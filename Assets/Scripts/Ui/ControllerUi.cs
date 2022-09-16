@@ -27,6 +27,7 @@ namespace Assets.Scripts.Ui
         private int CurrentTimeSesion;
 
         private int CurrentLevelPlayer;
+        private bool isDeadPlayer = false;
 
         private void Awake()
         {
@@ -131,15 +132,18 @@ namespace Assets.Scripts.Ui
             UIData.instanse.DeadImage.SetActive(isDead);
             UIData.instanse.DeadImage.SetActive(!isDead);
 
-            if (isDead)
+            if (isDead && !isDeadPlayer)
             {
                 FindObjectOfType<PMoveController>().GetComponent<PlayerInput>().enabled = false;
 
+                isDeadPlayer = true;
+                EndGame();
+                CurrentTimeSesion = 0;
+                StopCoroutine(Timer());
             }
 
-            //Time.timeScale = 0;
 
-            EndGame();
+           
         }
 
         //TODO Changes альфа канал - изменение прозрачности.
