@@ -57,7 +57,7 @@ public class PShootingController : MonoBehaviour
     public void Shoot()
     {
         
-        if (LastShootTime + ShootDelay < Time.time && gameObject.GetComponent<PMoveController>().weapon.ammunitionCurrent >0&& Time.realtimeSinceStartup - reloadTimeBuffer >= 1.63)
+        if (LastShootTime + ShootDelay < Time.time && gameObject.GetComponent<PMoveController>().weapon.ammunitionCurrent >0&& Time.realtimeSinceStartup - reloadTimeBuffer >= 2.0375)
         {
 
 
@@ -122,8 +122,9 @@ public class PShootingController : MonoBehaviour
         Trail.transform.position = HitPoint;
         if (MadeImpact)
         {
+           
            ParticleSystem impact = Instantiate(ImpactParticleSystem, HitPoint, Quaternion.LookRotation(HitNormal));
-
+           
 
         }
 
