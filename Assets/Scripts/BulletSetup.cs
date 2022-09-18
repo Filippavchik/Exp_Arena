@@ -9,7 +9,7 @@ public class BulletSetup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        damage += Random.Range(-randomAdd,randomAdd);
+        damage += Random.Range(0,randomAdd);
     }
 
     // Update is called once per frame
