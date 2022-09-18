@@ -1,6 +1,7 @@
 using Assets.Scripts.Ui;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -17,6 +18,8 @@ public class EnemyController : MonoBehaviour
     public LayerMask whatIsGround, whatIsPlayer;
 
     public float health;
+
+    public GameObject damageMarker;
 
     public ParticleSystem deathParticle;
 
@@ -145,9 +148,10 @@ public class EnemyController : MonoBehaviour
         alreadyAttacked = false;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Transform point)
     {
         health -= damage;
+        StartCoroutine(DropNumber(point, damageMarker, damage));
         if (getDamage != null) { getDamage.Invoke(); }
         if (health <= 0) { if (die != null) { die.Invoke(); } Invoke(nameof(DestroyEnemy), 0); ControllerUi.instanse.SetRedAim(); ControllerUi.instanse.ChangesLevelBar(); }
     }
@@ -171,11 +175,21 @@ public class EnemyController : MonoBehaviour
     {
         if (other.transform.tag == "Bullet")
         {
+            
             _audioSource.Stop();
             _audioSource.Play();
-            TakeDamage(other.transform.GetComponent<BulletSetup>().damage);
+            TakeDamage(other.transform.GetComponent<BulletSetup>().damage, other.transform);
             ControllerUi.instanse.SetWriteAim();
         }
+    }
+    IEnumerator DropNumber(Transform startPos, GameObject _damageMarker, int damage)
+    {
+        GameObject gameobject = Instantiate(_damageMarker, Camera.current.WorldToScreenPoint(startPos.position), Quaternion.identity);
+        gameobject.transform.parent = GameObject.Find("Canvas").transform;
+        gameobject.GetComponent<TextMeshProUGUI>().text = damage.ToString();
+        gameobject.GetComponent<NumberDamageIndicator>().SetStartPos(startPos.position);
+        yield return new WaitForSeconds(1);
+        Destroy(gameobject);
     }
     #endregion
 }

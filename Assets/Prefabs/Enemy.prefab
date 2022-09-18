@@ -2467,12 +2467,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   health: 100
+  damageMarker: {fileID: 689051545429129362, guid: 1c15cc55b1c68b84884fbc706432a916, type: 3}
   deathParticle: {fileID: 8835507417248419240, guid: 03ab7f09610a1404ea0bfbdac9c7d7d6, type: 3}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 1
   DamageToOnePoint: 0
   damageAddRange: 1
-  timeBetweenAttacks: 10
+  timeBetweenAttacks: 1
   projectile: {fileID: 3928528860053484037, guid: 971dbe0f5a773434b8dcc8c9f8676086, type: 3}
   sightRange: 1000
   attackRange: 1
