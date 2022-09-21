@@ -22,13 +22,13 @@ public class PShootingController : MonoBehaviour
 
     public TrailRenderer BulletTrail;
 
-    public float ShootDelay = 0.5f;
+    public GameObject weapon;
 
     public LayerMask Mask;
 
     public float BulletSpeed = 100;
 
-
+    float ShootDelay;
     float reloadTimeBuffer = -3;
     private void Update()
     {
@@ -52,6 +52,7 @@ public class PShootingController : MonoBehaviour
     private void Awake()
     {
         _character = GetComponent<Character>();
+        ShootDelay = 60/weapon.GetComponent<Weapon>().GetRateOfFire();
     }
 
     public void Shoot()
@@ -70,6 +71,7 @@ public class PShootingController : MonoBehaviour
             {
                 TrailRenderer trail = Instantiate(BulletTrail, BulletSpawnPoint.position, Quaternion.identity);
                 trail.GetComponent<BulletSetup>().damage = damage;
+                trail.GetComponent<BulletSetup>().randomAdd = DamagePlayer;
                 StartCoroutine(SpawnTrail(trail, hit.point, hit.normal, true));
 
                 LastShootTime = Time.time;

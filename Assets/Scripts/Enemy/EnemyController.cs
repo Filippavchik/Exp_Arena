@@ -61,15 +61,18 @@ public class EnemyController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         _audioSource = GetComponent<AudioSource>();
     }
-
+    Rigidbody rb;
+    NavMeshAgent nma;
     private void Start()
     {
-
+        nma = gameObject.GetComponent<NavMeshAgent>();
+       rb =  gameObject.GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
-
+        rb.drag = PlayerStatesHolder.enemyDrag;
+        nma.stoppingDistance = PlayerStatesHolder.distancetoPlayer;
         if (Time.timeScale == 1)
         {//Check for sight and attack range
             playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);

@@ -97,6 +97,7 @@ namespace Assets.Scripts.Ui
         public void ClickToCurrentBonus(int BonusID)
         {
             UpdateStatePlayer?.Invoke(CurrentBonusToPanel[BonusID]);
+            PlayerStatesHolder.currentBonus.Add(_CurrentBonusList[BonusID]);
         }
     }
 }

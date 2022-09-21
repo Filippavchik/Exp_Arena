@@ -10,6 +10,7 @@ public class BulletSetup : MonoBehaviour
     void Start()
     {
         damage += Random.Range(0,randomAdd);
+        
     }
 
     // Update is called once per frame
