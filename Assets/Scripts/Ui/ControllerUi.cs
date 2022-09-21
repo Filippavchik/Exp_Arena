@@ -9,7 +9,7 @@ namespace Assets.Scripts.Ui
     public class ControllerUi : MonoBehaviour
     {
         public static ControllerUi instanse;
-
+        public PlayerStatesHolder playerStatesHolder;
         private UpdateBonusPlayer _updateBonusPlayer;
 
         private UIData _uIData;
@@ -111,21 +111,57 @@ namespace Assets.Scripts.Ui
 
         private void MinusHpPlayer()
         {
+
+
+            ///ЧЕЕЕЕЕЕЕЕЕЛЛЛЛЛЛЛЛ ?????
+            /*            var DataUI = UIData.instanse;
+                        for (int i = DataUI.hpbar.Count -1; i < DataUI.hpbar.Count; i--)
+                        {
+                            if (0 > i)
+                            {
+                                return;
+                            }
+                            if (DataUI.hpbar[i].enabled ==true)
+                            {
+                                DataUI.hpbar[i].enabled = false;
+                                return;
+                            }
+                        }*/
+
+
             var DataUI = UIData.instanse;
-            for (int i = DataUI.hpbar.Length -1; i < DataUI.hpbar.Length; i--)
+            if(DataUI.hpbar.Count>0)
             {
-                if (0 > i)
-                {
-                    return;
-                }
-                if (DataUI.hpbar[i].enabled ==true)
-                {
-                    DataUI.hpbar[i].enabled = false;
-                    return;
-                }
+                Destroy(DataUI.hpbar[DataUI.hpbar.Count-1]);
+                DataUI.hpbar.RemoveAt(DataUI.hpbar.Count-1);
             }
         }
 
+        public bool PlusHpPlayer()
+        {
+            var DataUI = UIData.instanse;
+            if (playerStatesHolder.currentHealth != playerStatesHolder.maxHealthPoints)
+            {
+                GameObject GObject = Instantiate(DataUI.hpBarPrefab);
+                GObject.transform.SetParent(DataUI.maxHpBar[0].transform.parent);
+                DataUI.hpbar.Add(GObject);
+                return true;
+            }
+            return false;
+            
+
+        }
+        public void PlusMaxHpPlayer()
+        {
+            var DataUI = UIData.instanse;
+            GameObject GObject = Instantiate(DataUI.maxHpBarPrefab);
+            GObject.transform.SetParent(DataUI.maxHpBarContainer.transform);
+            DataUI.maxHpBar.Add(GObject);
+            GameObject gObject = Instantiate(DataUI.hpBarPrefab);
+            gObject.transform.SetParent(DataUI.hpBarContainer.transform);
+            DataUI.hpbar.Add(gObject);
+            
+        }
         private void DeadOrWinPlayer(bool isDead)
         {
             UIData.instanse.EndPanel.SetActive(true);

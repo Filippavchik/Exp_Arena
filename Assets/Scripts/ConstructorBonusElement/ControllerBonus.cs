@@ -47,6 +47,11 @@ namespace Assets.Scripts.ConstructorBonusElement
         /// <param name="improvements"> текущий выбранный бонус</param>
         public void BonusSelection(Bonus bonus) //TODO Передать бонус и изменить статы.
         {
+            Bonus _bonus = new Bonus();
+            _bonus.SaveCurrentBonus.improvements = bonus.SaveCurrentBonus.improvements;
+            _bonus.SaveCurrentBonus.RangeToSelectionBonus = bonus.SaveCurrentBonus.RangeToSelectionBonus;
+            PlayerStatesHolder.currentBonus.Add(_bonus);
+            Debug.Log(PlayerStatesHolder.currentBonus[PlayerStatesHolder.currentBonus.Count-1].SaveCurrentBonus);
             Improvements improvements = bonus.SaveCurrentBonus.improvements;
             int Index = (int)improvements;
             var LevelBonus = ++CurrentLevelBonus[Index]; // повышаем текущий левел выпадения бонуса.

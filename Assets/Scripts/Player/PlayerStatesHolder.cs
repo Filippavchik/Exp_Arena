@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering.PostProcessing;
+using Assets.Scripts.Ui;
 public class PlayerStatesHolder : MonoBehaviour
 {
     public int maxHealthPoints = 3;
@@ -18,6 +19,7 @@ public class PlayerStatesHolder : MonoBehaviour
     private Bloom bloom;
     public static List<Bonus> currentBonus;
     public GameObject Sphere;
+    public ControllerUi controllerUI;
     public static float distancetoPlayer;
     public static float enemyDrag = 100;
     /// <summary>
@@ -30,7 +32,7 @@ public class PlayerStatesHolder : MonoBehaviour
     private void Awake()
     {
         currentBonus = new List<Bonus>();
-        bonusBuffer = currentBonus;
+        bonusBuffer = new List<Bonus>();
     }
     void Start()
     {
@@ -42,6 +44,30 @@ public class PlayerStatesHolder : MonoBehaviour
         shootingController = gameObject.GetComponent<PShootingController>();
         currentHealth = maxHealthPoints;
     }
+    void Update()
+    {
+
+        if (bonusBuffer.Count != currentBonus.Count)
+        {
+            BonusApply(currentBonus[currentBonus.Count - 1]);
+            bonusBuffer = currentBonus;
+        }
+
+        if (currentHealth <= 0) { gameObject.GetComponent<PMoveController>().die.Invoke(); }
+        if (vignette.opacity < 0)
+        {
+            vignette.intensity.value = 0f;
+            bloom.intensity.value = 0;
+        }
+        else
+        {
+            vignette.intensity.value -= Time.deltaTime / 5;
+            bloom.intensity.value = 10 * (vignette.intensity.value) / 0.655f;
+        }
+        SphereCollaps();
+        Heal();
+    }
+
 
     public void UpgradeMovement(float Coefficient)
     {
@@ -100,41 +126,64 @@ public class PlayerStatesHolder : MonoBehaviour
             timeBuffer += Time.deltaTime * 10;
             distancetoPlayer = timeBuffer + 1;
             Sphere.transform.localScale = new Vector3(Mathf.Pow(1+ timeBuffer-minTime, collapsePow), Mathf.Pow(1 + timeBuffer - minTime, collapsePow), Mathf.Pow(1 + timeBuffer - minTime, collapsePow));
+            return;
         }
         else if(timeBuffer > -1 && timeBuffer <= maxTime)
         {
             timeBuffer += Time.deltaTime;
+            return;
         }
         else if(timeBuffer > -1)
         {
             timeBuffer = 0;
             distancetoPlayer = 1;
             Sphere.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+            return;
         }
+    }
+
+    void Heal()
+    {
+        if (everySecondsHealBuffer > -1 && everySecondsHealBuffer < maxHealSeconds)
+        {
+            everySecondsHealBuffer += Time.deltaTime;
+        }
+        else if (everySecondsHealBuffer > -1)
+        {
+            everySecondsHealBuffer = 0;
+            UpgradeAddHp();
+        }
+    }
+    public void UpgradeCriticalDamageHeal()
+    {
+        
+    }
+    float everySecondsHealBuffer = -1;
+    float maxHealSeconds = 100;
+    public void UpgradeEverySecondsHeal(float time)
+    {
+        maxHealSeconds = time;
+        everySecondsHealBuffer = 0;
+    }
+
+    bool isUpgradeOnDamage = false;
+    public void UpgradeOnDamageDamage()
+    {
+        isUpgradeOnDamage = true;
+    }
+    public void UpgradeMaxHp()
+    {
+        controllerUI.PlusMaxHpPlayer();
+        maxHealthPoints ++;
+        currentHealth++;
+    }
+    public void UpgradeAddHp()
+    {
+        if (controllerUI.PlusHpPlayer()) currentHealth++;
     }
     // Update is called once per frame
 
-    void Update()
-    {
-        if (bonusBuffer != currentBonus)
-        {
-            BonusApply(currentBonus[currentBonus.Count - 1]);
-            bonusBuffer = currentBonus;
-        }
 
-        if (currentHealth <= 0) { gameObject.GetComponent<PMoveController>().die.Invoke(); }
-        if (vignette.opacity < 0)
-        {
-            vignette.intensity.value = 0f;
-            bloom.intensity.value = 0;
-        }
-        else
-        {
-            vignette.intensity.value -= Time.deltaTime / 5;
-            bloom.intensity.value = 10 * (vignette.intensity.value) / 0.655f;
-        }
-        SphereCollaps();
-    }
 
     public void TakeDamage(int damage)
     {
@@ -146,6 +195,12 @@ public class PlayerStatesHolder : MonoBehaviour
             EventMinusPlayerHp?.Invoke();
             vignette.intensity.value = 0.655f;
             bloom.intensity.value = 5;
+            if (isUpgradeOnDamage)
+            {
+                UpgradeDamage(1.15f);
+                isUpgradeOnDamage = false;
+            }
+        
         }
 
 
@@ -160,11 +215,12 @@ public class PlayerStatesHolder : MonoBehaviour
 
 
     
-
+    
 
 
     public void BonusApply(Bonus bonus)
     {
+        Debug.Log(bonus.SaveCurrentBonus.improvements.ToString());
         switch (bonus.SaveCurrentBonus.RangeToSelectionBonus) { 
             #region Level1 
             case 0:
@@ -174,6 +230,7 @@ public class PlayerStatesHolder : MonoBehaviour
                         UpgradeCriticalDamage(1.25f);
                         break;
                     case Improvements.BigBoy:
+                        UpgradeMaxHp();
                         break;
                     case Improvements.BulletHell:
                         UpgradeDamage(1.20f);
@@ -204,6 +261,8 @@ public class PlayerStatesHolder : MonoBehaviour
                         UpgradeBulletSpeed(1.1f);
                         break;
                     case Improvements.BigBoy:
+                        ///needed;
+
                         break;
                     case Improvements.BulletHell:
                         UpgradeShootSpeed(1.25f);
@@ -213,6 +272,7 @@ public class PlayerStatesHolder : MonoBehaviour
                     case Improvements.ExpMaster:
                         break;
                     case Improvements.ImpulseShmimpulse:
+                        UpgradeSphere(8, 11);
                         UpgradeCollapse(1.5f);
                         break;
                     case Improvements.Runner:
@@ -234,6 +294,7 @@ public class PlayerStatesHolder : MonoBehaviour
                         UpgradeBulletSpeed(1.1f);
                         break;
                     case Improvements.BigBoy:
+                        UpgradeOnDamageDamage();
                         break;
                     case Improvements.BulletHell:
                         UpgradeBulletSpeed(1.3f);
@@ -243,6 +304,7 @@ public class PlayerStatesHolder : MonoBehaviour
                     case Improvements.ExpMaster:
                         break;
                     case Improvements.ImpulseShmimpulse:
+
                         break;
                     case Improvements.Runner:
                         UpgradeJummp(1.3f);
@@ -264,28 +326,35 @@ public class PlayerStatesHolder : MonoBehaviour
                         UpgradeShootSpeed(1.5f);
                         break;
                     case Improvements.BigBoy:
+                        UpgradeEverySecondsHeal(100);
                         break;
                     case Improvements.BulletHell:
                         UpgradeEnemyDrag(1.5f);
                         break;
                     case Improvements.DeathLover:
+                        //
                         break;
                     case Improvements.ExpMaster:
+                        //
                         break;
                     case Improvements.ImpulseShmimpulse:
                         UpgradeSphere(4, 7);
+                       
                         break;
                     case Improvements.Runner:
                         UpgradeMovement(1.2f);
                         UpgradeRunning(1.2f);
                         break;
                     case Improvements.WalkTalk:
+                        //
                         break;
 
 
                 }
                 break;
-                #endregion
+            #endregion
+            default:
+                break;
         }
 
 

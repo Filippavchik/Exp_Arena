@@ -17,5 +17,5 @@ MonoBehaviour:
   BonusImage: {fileID: 21300000, guid: 446f635295c542f4a9a83be056ab2524, type: 3}
   Frame: {fileID: 21300000, guid: 2d667f9d639821044b95dfa5463cae1b, type: 3}
   SaveCurrentBonus:
-    improvements: 6
+    improvements: 2
     RangeToSelectionBonus: 2

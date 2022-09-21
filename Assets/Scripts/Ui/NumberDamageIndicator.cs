@@ -13,7 +13,7 @@ public class NumberDamageIndicator : MonoBehaviour
     }
 /*    void Start()
     {
-      gameObject.transform.position =  Camera.current.WorldToScreenPoint(stratPos);
+        gameObject.transform.position = Camera.current.WorldToScreenPoint(stratPos);
     }*/
 
     // Update is called once per frame

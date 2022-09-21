@@ -14,7 +14,14 @@ namespace Assets.Scripts.Ui
 
         public Text Timer;
         public Image LevelBar;
-        public Image[] hpbar;
+        public List<GameObject> hpbar; /// маленькими буквами (
+        public GameObject hpBarPrefab;
+        public GameObject maxHpBarPrefab;
+        public List<GameObject> maxHpBar;
+
+        public GameObject hpBarContainer;
+        public GameObject maxHpBarContainer;
+
 
         public Text Level;
 
