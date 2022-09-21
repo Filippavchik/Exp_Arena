@@ -105,7 +105,7 @@ public class PlayerStatesHolder : MonoBehaviour
         {
             timeBuffer += Time.deltaTime;
         }
-        else
+        else if(timeBuffer > -1)
         {
             timeBuffer = 0;
             distancetoPlayer = 1;
