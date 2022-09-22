@@ -5830,8 +5830,8 @@ MonoBehaviour:
   - {fileID: 363513170}
   - {fileID: 259036827}
   - {fileID: 544020176}
-  hpBarContiner: {fileID: 1965166125}
-  maxHpBarContiner: {fileID: 1720225326}
+  hpBarContainer: {fileID: 1965166125}
+  maxHpBarContainer: {fileID: 1720225326}
   Level: {fileID: 840783061}
   EndPanel: {fileID: 1602353974}
   CountTimeSesion: {fileID: 910336811}
@@ -76737,6 +76737,7 @@ MonoBehaviour:
         m_CallState: 2
   _camera: {fileID: 56164245542390743}
   Sphere: {fileID: 648194618}
+  controllerUI: {fileID: 163389224}
 --- !u!1 &8180123123858170909
 GameObject:
   m_ObjectHideFlags: 0
