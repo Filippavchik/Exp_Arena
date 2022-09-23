@@ -22,6 +22,9 @@ public class PlayerStatesHolder : MonoBehaviour
     public ControllerUi controllerUI;
     public static float distancetoPlayer;
     public static float enemyDrag = 100;
+    public ParticleSystem particleSystem;
+    public ParticleSystem levelUp;
+    public float xpFlyDistance = 3;
     /// <summary>
     Movement movement;
     PShootingController shootingController;
@@ -125,6 +128,8 @@ public class PlayerStatesHolder : MonoBehaviour
         {
             timeBuffer += Time.deltaTime * 10;
             distancetoPlayer = timeBuffer + 1;
+            if (!particleSystem.isPlaying) particleSystem.Play();
+            
             Sphere.transform.localScale = new Vector3(Mathf.Pow(1+ timeBuffer-minTime, collapsePow), Mathf.Pow(1 + timeBuffer - minTime, collapsePow), Mathf.Pow(1 + timeBuffer - minTime, collapsePow));
             return;
         }
@@ -214,7 +219,10 @@ public class PlayerStatesHolder : MonoBehaviour
     }
 
 
-    
+    public void UpgradeXPFlyDistance(float Coefficient)
+    {
+        xpFlyDistance *= Coefficient;
+    }
     
 
 
@@ -238,6 +246,7 @@ public class PlayerStatesHolder : MonoBehaviour
                     case Improvements.DeathLover:
                         break;
                     case Improvements.ExpMaster:
+                        UpgradeXPFlyDistance(1.4f);
                         break;
                     case Improvements.ImpulseShmimpulse:
                         UpgradeSphere(8, 11);
@@ -302,6 +311,9 @@ public class PlayerStatesHolder : MonoBehaviour
                     case Improvements.DeathLover:
                         break;
                     case Improvements.ExpMaster:
+                        UpgradeXPFlyDistance(1.1f);
+                        //
+                        UpgradeDamage(1.1f);
                         break;
                     case Improvements.ImpulseShmimpulse:
 
@@ -335,7 +347,7 @@ public class PlayerStatesHolder : MonoBehaviour
                         //
                         break;
                     case Improvements.ExpMaster:
-                        //
+                        UpgradeXPFlyDistance(1.15f);
                         break;
                     case Improvements.ImpulseShmimpulse:
                         UpgradeSphere(4, 7);
@@ -360,5 +372,16 @@ public class PlayerStatesHolder : MonoBehaviour
 
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Exp"))
+            
+        {   levelUp.Play();
+            controllerUI.ChangesLevelBar();
+            Destroy(other.gameObject);
+        }
+                
+    }
 
 }

@@ -17,7 +17,7 @@ namespace Assets.Scripts.Ui
         private bool _isAcriveWriteImage;
         private bool _isAcriveRedImage;
 
-        private int CountPlayerExp; //Max = 10;
+        public static int CountPlayerExp; //Max = 10;
         private int LevelExp = 1;
 
         private const int CountAddLevel = 1;
@@ -26,7 +26,7 @@ namespace Assets.Scripts.Ui
         [SerializeField] private int AllTime = 10;
         private int CurrentTimeSesion;
 
-        private int CurrentLevelPlayer;
+        public int CurrentLevelPlayer;
         private bool isDeadPlayer = false;
 
         private void Awake()
@@ -224,6 +224,7 @@ namespace Assets.Scripts.Ui
 
             if (CountPlayerExp >= ExpToNewLevel)
             {
+
                 CountPlayerExp -= ExpToNewLevel;
                 LevelExp++;
                 _uIData.Level.text = LevelExp.ToString();
@@ -283,4 +284,6 @@ namespace Assets.Scripts.Ui
             Cursor.lockState = CursorLockMode.None;
         }
     }
+
+    
 }

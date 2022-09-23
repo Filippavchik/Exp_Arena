@@ -23,6 +23,7 @@ public class EnemyController : MonoBehaviour
 
     public ParticleSystem deathParticle;
 
+    public GameObject xpParticle;
     //Patroling
     public Vector3 walkPoint;
     bool walkPointSet;
@@ -146,9 +147,18 @@ public class EnemyController : MonoBehaviour
         _isAttack = false;
 
     }
+
     private void ResetAttack()
     {
         alreadyAttacked = false;
+    }
+
+    public ParticleSystem PlayDeath()
+    {
+        return Instantiate(deathParticle, gameObject.transform.position+Vector3.down, Quaternion.identity);
+        
+/*         particle.Play();
+        return particle;*/
     }
 
     public void TakeDamage(int damage, Transform point)
@@ -156,13 +166,15 @@ public class EnemyController : MonoBehaviour
         health -= damage;
         StartCoroutine(DropNumber(point, damageMarker, damage));
         if (getDamage != null) { getDamage.Invoke(); }
-        if (health <= 0) { if (die != null) { die.Invoke(); } Invoke(nameof(DestroyEnemy), 0); ControllerUi.instanse.SetRedAim(); ControllerUi.instanse.ChangesLevelBar(); }
+        if (health <= 0) { if (die != null) { die.Invoke(); } Invoke(nameof(DestroyEnemy), 0); ControllerUi.instanse.SetRedAim(); /*ControllerUi.instanse.ChangesLevelBar();*/ }
     }
-
+    public ParticleSystem particle;
     private void DestroyEnemy()
     {
-        ParticleSystem particle = Instantiate(deathParticle, transform.position  /*+Vector3.down*/, deathParticle.transform.rotation);
+        particle = Instantiate(deathParticle, transform.position  +Vector3.down, deathParticle.transform.rotation);
+        Instantiate(xpParticle, gameObject.transform.position + Vector3.down*0.5f, Quaternion.identity);
         particle.Play();
+        SpawnPointController.enemy.Remove(gameObject);
         Destroy(gameObject);
     }
 

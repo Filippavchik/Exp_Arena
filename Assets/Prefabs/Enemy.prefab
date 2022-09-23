@@ -2470,6 +2470,7 @@ MonoBehaviour:
   health: 100
   damageMarker: {fileID: 689051545429129362, guid: 1c15cc55b1c68b84884fbc706432a916, type: 3}
   deathParticle: {fileID: 8835507417248419240, guid: 03ab7f09610a1404ea0bfbdac9c7d7d6, type: 3}
+  xpParticle: {fileID: 6075480542438370835, guid: f5cf881404827d648bae807f2a996cca, type: 3}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 1
   DamageToOnePoint: 0
@@ -2480,6 +2481,7 @@ MonoBehaviour:
   attackRange: 1
   playerInSightRange: 0
   playerInAttackRange: 0
+  particle: {fileID: 8835507417248419240, guid: 03ab7f09610a1404ea0bfbdac9c7d7d6, type: 3}
 --- !u!64 &7641292353446249459
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2627,6 +2629,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9065153519764704582}
     m_Modifications:
+    - target: {fileID: 3215813980748907608, guid: 1accd915d13f5f14abbbbb6cfb4f4719, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3342319274168625986, guid: 1accd915d13f5f14abbbbb6cfb4f4719, type: 3}
       propertyPath: m_Layer
       value: 8
